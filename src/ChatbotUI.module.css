@@ -1,0 +1,176 @@
+/* Main Chatbot container */
+.chatbotContainer {
+  background-color: rgba(255, 255, 255, 0.8); /* Added slight transparency for the gradient to show through */
+  backdrop-filter: blur(10px); /* Soft blur effect */
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 42rem;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.chatbotHeader {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.headerTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #212529;
+}
+
+/* Messages */
+.messagesContainer {
+  flex-grow: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.messageWrapper {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  max-width: 90%;
+}
+
+.messageWrapper.user {
+  justify-content: flex-end;
+  align-self: flex-end;
+}
+
+.messageWrapper.bot {
+  justify-content: flex-start;
+  align-self: flex-start;
+}
+
+.botAvatar {
+  width: 2.25rem;
+  height: 2.25rem;
+
+  /* CHANGED: Use a local path from the public folder */
+  background-image: url("/botavatar.png");
+
+  /* Ensure the image fits correctly within the avatar space */
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  /* Use rounded corners instead of a perfect circle */
+  border-radius: 0.5rem; 
+
+  flex-shrink: 0;
+}
+.messageBubble {
+  max-width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 1.125rem;
+  font-size: 0.875rem;
+  word-wrap: break-word;
+  line-height: 1.5;
+}
+
+.messageWrapper.user .messageBubble {
+  /* CHANGED: User messages use the new blue accent color */
+  background-color: #389AFE;
+  color: #fff;
+  border-bottom-right-radius: 0;
+}
+
+.messageWrapper.bot .messageBubble {
+  background-color: #F1F3F5;
+  color: #212529;
+  border-bottom-left-radius: 0;
+}
+
+/* Typing Indicator */
+.typingIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+.typingDot {
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #ADB5BD;
+  border-radius: 50%;
+}
+
+/* Input Area */
+.inputArea {
+  padding: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.textInput {
+  width: 100%;
+  background-color: #F8F9FA;
+  border: 1px solid #DEE2E6;
+  border-radius: 9999px;
+  padding: 0.75rem 3.5rem 0.75rem 1.25rem;
+  color: #212529;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+}
+
+.textInput::placeholder {
+  color: #868E96;
+}
+
+.textInput:focus {
+  outline: none;
+  border-color: #389AFE;
+  /* CHANGED: Focus shadow uses the new blue accent color */
+  box-shadow: 0 0 0 3px rgba(56, 154, 254, 0.2);
+}
+
+.textInput:disabled {
+  opacity: 0.7;
+}
+
+.sendButton {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  /* CHANGED: Button uses the new blue accent color */
+  background-color: #389AFE;
+  border: none;
+  border-radius: 50%;
+  padding: 0.625rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sendButton:hover {
+  /* CHANGED: Darker blue for hover */
+  background-color: #007BFF;
+}
+
+.sendButton:disabled {
+  background-color: #A4CAFE;
+  cursor: not-allowed;
+}
+
+.sendButton svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #fff;
+}

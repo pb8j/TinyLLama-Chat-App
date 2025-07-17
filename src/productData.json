@@ -1,0 +1,25 @@
+{
+    "products": [
+    {
+    "id": 1,
+    "name": "Autonomous Drone",
+    "description": "A state-of-the-art autonomous drone for aerial surveillance and data collection.",
+    "price": 2500,
+    "features": ["4K Camera", "30-minute flight time", "Obstacle avoidance"]
+    },
+    {
+    "id": 2,
+    "name": "Robotic Arm",
+    "description": "A high-precision robotic arm for manufacturing and assembly lines.",
+    "price": 5000,
+    "features": ["6-axis movement", "2kg payload capacity", "Easy-to-use software interface"]
+    },
+    {
+    "id": 3,
+    "name": "AI Vision System",
+    "description": "An AI-powered vision system for quality control and object recognition.",
+    "price": 3200,
+    "features": ["High-speed image processing", "Deep learning models", "Integration with existing systems"]
+    }
+    ]
+}

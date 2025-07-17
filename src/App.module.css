@@ -1,0 +1,110 @@
+/* General App Layout */
+.main {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  /* CHANGED: Switched to a soft gradient background to match the new image */
+  background-image: linear-gradient(to bottom, #E0F7FA, #FFF3E0);
+  overflow: hidden;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* This class is no longer needed */
+.backgroundGradient {
+  display: none;
+}
+
+.contentLayout {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  gap: 2rem;
+}
+
+/* Left & Right Columns */
+.leftColumn, .rightColumn {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.leftColumn {
+  height: 50%;
+}
+
+.rightColumn {
+    height: 100%;
+}
+
+/* Text Styling */
+.titleContainer {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.mainTitle {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #212529;
+  line-height: 1.1;
+}
+
+.titleHighlight {
+  /* CHANGED: Highlight color updated to the new friendly blue */
+  color: #389AFE;
+}
+
+.subtitle {
+  color: #6C757D;
+  margin-top: 0.5rem;
+  font-size: 1.125rem;
+}
+
+.canvasContainer {
+  width: 100%;
+  height: 100%;
+  max-height: 500px;
+}
+
+.canvas {
+  cursor: grab;
+}
+
+.canvas:active {
+  cursor: grabbing;
+}
+
+.loaderText {
+  color: #212529;
+  font-size: 1.125rem;
+}
+
+
+/* Responsive layout */
+@media (min-width: 1024px) {
+  .contentLayout {
+    flex-direction: row;
+    padding: 2rem;
+  }
+  .leftColumn, .rightColumn {
+    width: 50%;
+  }
+  .leftColumn {
+    height: 100%;
+  }
+  .mainTitle {
+    font-size: 3.75rem;
+  }
+  .canvasContainer {
+    max-height: 100%;
+  }
+}
