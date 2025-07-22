@@ -2,35 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import styles from './ChatbotUI.module.css';
 
-// Mock NLP and data files
-const productData = {
-    products: [
-        { id: 1, name: "Autonomous Drone", description: "A state-of-the-art autonomous drone for aerial surveillance and data collection.", price: 2500, features: ["4K Camera", "30-minute flight time", "Obstacle avoidance"] },
-        { id: 2, name: "Robotic Arm", description: "A high-precision robotic arm for manufacturing and assembly lines.", price: 5000, features: ["6-axis movement", "2kg payload capacity", "Easy-to-use software interface"] },
-        { id: 3, name: "AI Vision System", description: "An AI-powered vision system for quality control and object recognition.", price: 3200, features: ["High-speed image processing", "Deep learning models", "Integration with existing systems"] }
-    ]
-};
-const companyInfo = { name: "AI Robotics Corp", mission: "To advance the future of automation and artificial intelligence.", contact: "contact@airobotics.com" };
-
-const processQuery = async (query) => {
-    const lowerCaseQuery = query.toLowerCase();
-    await new Promise(resolve => setTimeout(resolve, 500));
-    if (lowerCaseQuery.includes('hello') || lowerCaseQuery.includes('hi')) return "Hello! I am the AI Robotics Assistant. How can I help you today?";
-    if (lowerCaseQuery.includes('company') && lowerCaseQuery.includes('name')) return `Our company is called ${companyInfo.name}.`;
-    if (lowerCaseQuery.includes('mission') || lowerCaseQuery.includes('about')) return companyInfo.mission;
-    if (lowerCaseQuery.includes('contact') || lowerCaseQuery.includes('email')) return `You can contact us at: ${companyInfo.contact}.`;
-    if (lowerCaseQuery.includes('products') || lowerCaseQuery.includes('list')) {
-        const productNames = productData.products.map(p => p.name).join(', ');
-        return `We offer: ${productNames}. Which one interests you?`;
-    }
-    const foundProduct = productData.products.find(p => lowerCaseQuery.includes(p.name.toLowerCase()));
-    if (foundProduct) {
-        if (lowerCaseQuery.includes('price')) return `The price of the ${foundProduct.name} is $${foundProduct.price}.`;
-        if (lowerCaseQuery.includes('description')) return foundProduct.description;
-        return `The ${foundProduct.name} features: ${foundProduct.features.join(', ')}. What else would you like to know?`;
-    }
-    return "I'm sorry, I don't have information on that. Please ask about our products or company.";
-};
+// Remove mock data and the local processQuery function
+// const productData = { ... };
+// const companyInfo = { ... };
+// const processQuery = async (query) => { ... };
 
 const ChatbotUI = () => {
     const [messages, setMessages] = useState([{ text: "Welcome! Ask me about our AI, Robotics, and Automation systems.", sender: 'bot' }]);
@@ -43,14 +18,38 @@ const ChatbotUI = () => {
 
     const handleSend = async () => {
         if (input.trim() === '') return;
+
         const userMessage = { text: input, sender: 'user' };
         setMessages(prev => [...prev, userMessage]);
         setInput('');
         setIsTyping(true);
-        const botResponse = await processQuery(input);
-        setIsTyping(false);
-        const botMessage = { text: botResponse, sender: 'bot' };
-        setMessages(prev => [...prev, botMessage]);
+
+        try {
+            // Make an API call to your backend where the TinyLlama model is hosted
+            const response = await fetch('http://localhost:5000/process-query', { // Replace with your actual backend API endpoint
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ query: userMessage.text }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            const botResponse = data.response; // Assuming your backend sends a JSON object with a 'response' field
+
+            setIsTyping(false);
+            const botMessage = { text: botResponse, sender: 'bot' };
+            setMessages(prev => [...prev, botMessage]);
+
+        } catch (error) {
+            console.error("Error communicating with the chatbot API:", error);
+            setIsTyping(false);
+            setMessages(prev => [...prev, { text: "Sorry, I'm having trouble connecting to my AI brain. Please try again later.", sender: 'bot' }]);
+        }
     };
 
     const handleKeyPress = (e) => {
