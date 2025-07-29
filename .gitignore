@@ -6,6 +6,8 @@
 .pnp.js
 
 # Python virtual environment and dependencies
+/my-tinyllama-adapter/
+
 venv/
 .venv/
 __pycache__/
